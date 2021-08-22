@@ -1,7 +1,14 @@
 a{
   color:#fff;
+  padding: 1%
 }
 
 a:hover{
   color:darkgrey;
 }
+
+.navBar button{
+  position: relative;
+  left: 70%;
+}
+
