@@ -11,40 +11,13 @@ import Login from './Login';
 import { withAuth0 } from '@auth0/auth0-react';
 import BestBooks from './BestBooks';
 import Profile from './Profile.js';
-import axios from 'axios';
+// import axios from 'axios';
 
 class App extends React.Component {
-
-  constructor(props) {
-    super(props);
-    this.state = {
-      booksData: [],
-    }
-  }
-
-
-  
-
-  componentDidMount = async () => {
-
-      let booksURL = `http://localhost:3001/books?q=allbooks`
-
-      let retrieveBooks = await axios.get(booksURL);
-
-      await this.setState({
-        booksData: retrieveBooks.data,
-      });
-      }
-
-
-
-
-
 
 
   render() {
     const { isAuthenticated } = this.props.auth0;
-
     // console.log('app', this.props);
     return (
       <>
@@ -54,9 +27,8 @@ class App extends React.Component {
           <Switch>
             <Route exact path="/">
               {/* TODO: if the user is logged in, render the `BestBooks` component, if they are not, render the `Login` component */}
-              {isAuthenticated ? 
-              (this.state.booksData && <BestBooks booksData={this.state.booksData} />)
-              : <Login />
+              {isAuthenticated ?
+                <BestBooks /> : <Login />
               }
             </Route>
             {/* TODO: add a route with a path of '/profile' that renders a `Profile` component */}

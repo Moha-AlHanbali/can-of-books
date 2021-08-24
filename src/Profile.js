@@ -6,7 +6,10 @@ import './Profile.css';
 class Profile extends React.Component {
 
   render() {
+    console.log(this.props.auth0);
+
     const { user, isAuthenticated } = this.props.auth0;
+    console.log(this.props.auth0);
 
     return isAuthenticated && (
 
@@ -15,7 +18,7 @@ class Profile extends React.Component {
         <Card.Body>
           <Card.Title>{user.name} info</Card.Title>
           <Card.Text>
-            <p>e-mail: <a className='emailLink' href={`mailto:  ${user.email}`} > {user.email} </a></p>
+            e-mail: <a className='emailLink' href={`mailto:  ${user.email}`} > {user.email} </a>
           </Card.Text>
         </Card.Body>
       </Card>
