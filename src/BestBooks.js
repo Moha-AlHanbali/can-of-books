@@ -3,6 +3,7 @@ import Book from './Book.js';
 import BookModal from './BookModal.js';
 import { withAuth0 } from '@auth0/auth0-react';
 import axios from 'axios';
+import UpdateModal from './UpdateModal.js';
 
 class MyFavoriteBooks extends React.Component {
   constructor(props) {
@@ -10,6 +11,8 @@ class MyFavoriteBooks extends React.Component {
     this.state = {
       booksData: [],
       currentUser: {},
+      showUpdateModal: false,
+      bookUpdate: {},
     }
   }
 
@@ -54,12 +57,45 @@ class MyFavoriteBooks extends React.Component {
     });
   }
 
+  updateBook = async (event) => {
+    event.preventDefault();
+
+    console.log(event.target);
+    let updatdBook = {
+      title: event.target.title.value,
+      description: event.target.description.value,
+      status: event.target.status.value,
+      email: this.state.currentUser,
+    }
+    let bookID = this.state.bookUpdate._id;
+    let updatedBook = await axios.put(`${process.env.REACT_APP_SERVER_URL}/books/${bookID}`, { params: updatdBook })
+    this.setState({
+      booksData: updatedBook.data,
+    })
+  }
+
+
+  handleUpdateShow = async (selectedBook) => {
+    console.log('selectedBook', selectedBook);
+    await this.setState({
+      showUpdateModal: true,
+      bookUpdate: selectedBook,
+    })
+    console.log('bestbooks', this.state.bookUpdate);
+  }
+
+  handleUpdateClose = async () => {
+    await this.setState({
+      showUpdateModal: false,
+    })
+  }
 
   render() {
     return (
       <>
         <BookModal addBook={this.addBook} />
-        <Book booksData={this.state.booksData} removeBook={this.removeBook} />
+        <UpdateModal updateBook={this.updateBook} handleUpdateClose={this.handleUpdateClose} showUpdateModal={this.state.showUpdateModal} bookUpdate={this.state.bookUpdate} />
+        <Book booksData={this.state.booksData} removeBook={this.removeBook} handleUpdateShow={this.handleUpdateShow} />
       </>
     )
   }

@@ -11,7 +11,6 @@ import Login from './Login';
 import { withAuth0 } from '@auth0/auth0-react';
 import BestBooks from './BestBooks';
 import Profile from './Profile.js';
-// import axios from 'axios';
 
 class App extends React.Component {
 
