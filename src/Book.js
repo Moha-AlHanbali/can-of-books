@@ -14,8 +14,18 @@ class Book extends React.Component {
     console.log(bookID);
     this.props.removeBook(bookID);
   }
+
+  updateBook = (bookID) => {
+    this.props.updateBook(bookID);
+  }
+  
+  handleUpdateShow = (book) => {
+    this.props.handleUpdateShow(book);
+    console.log('book',book);
+  }
+
   render() {
-    console.log(this.props.booksData);
+    // console.log(this.props.booksData);
     return (
       <Jumbotron>
         <Row xs={1} md={4} className="g-4">
@@ -32,8 +42,11 @@ class Book extends React.Component {
                       <ListGroup.Item><p>Added by : {book.email}</p></ListGroup.Item>
 
                       <ListGroup.Item>
-                      <Button variant="primary" type="submit" onClick= {() => {this.removeBook(book._id)}}>
-                        Remove Book
+                      <Button variant="primary" type="submit" onClick= {() => {this.handleUpdateShow(book)}}>
+                        Update
+                      </Button>
+                      <Button style={{marginLeft:'50px'}} variant="danger" type="submit" onClick= {() => {this.removeBook(book._id)}}>
+                        Remove
                       </Button>
                       </ListGroup.Item>
 
